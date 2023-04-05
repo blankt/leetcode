@@ -1,16 +1,13 @@
-package main
+package leetcode
 
 import "container/heap"
 
-//leetcode submit region begin(Prohibit modification and deletion)
-
-// Definition for singly-linked list.
 type ListNode struct {
 	Val  int
 	Next *ListNode
 }
 
-func mergeKLists(lists []*ListNode) *ListNode {
+func MergeKLists(lists []*ListNode) *ListNode {
 	pq := PriorityQueue{}
 	dummy := &ListNode{}
 	p := dummy
@@ -29,7 +26,7 @@ func mergeKLists(lists []*ListNode) *ListNode {
 		if item.Next != nil {
 			newItem := &Item{
 				Val:      item.Next,
-				Priority: item.Val,
+				Priority: item.Next.Val,
 			}
 			pq.Push(newItem)
 		}
@@ -66,7 +63,7 @@ func (pq *PriorityQueue) Push(x any) {
 	item := x.(*Item)
 	item.Index = n
 	*pq = append(*pq, item)
-	heap.Fix(pq, pq.Len())
+	heap.Fix(pq, pq.Len()-1)
 }
 
 func (pq *PriorityQueue) Pop() any {
@@ -78,5 +75,3 @@ func (pq *PriorityQueue) Pop() any {
 	heap.Fix(pq, 0)
 	return item
 }
-
-//leetcode submit region end(Prohibit modification and deletion)
