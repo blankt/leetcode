@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"leetcode/array"
+	"leetcode/tree"
 )
 
 // [[1,4,5],[1,3,4],[2,6]]
@@ -56,6 +56,20 @@ func main() {
 
 	//var matrix = [][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}
 	//fmt.Println(leetcode.SpiralOrder(matrix))
-	var s = []int{2, 3, 1, 2, 4, 3}
-	fmt.Println(array.MinSubArrayLen(7, s))
+	//var s = []int{2, 3, 1, 2, 4, 3}
+	//fmt.Println(array.MinSubArrayLen(7, s))
+
+	root := &tree.Node{
+		Val: 0,
+	}
+	left := &tree.Node{
+		Val: 0,
+	}
+	right := &tree.Node{
+		Val: 0,
+	}
+	root.Left = left
+	root.Right = right
+	result := tree.Connect(root)
+	fmt.Println(result)
 }
