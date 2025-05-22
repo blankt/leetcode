@@ -1,9 +1,6 @@
 package main
 
-import (
-	"fmt"
-	"leetcode/tree"
-)
+import "github.com/blankt/leetcode/tree"
 
 // [[1,4,5],[1,3,4],[2,6]]
 func main() {
@@ -59,17 +56,42 @@ func main() {
 	//var s = []int{2, 3, 1, 2, 4, 3}
 	//fmt.Println(array.MinSubArrayLen(7, s))
 
-	root := &tree.Node{
-		Val: 0,
+	//root := &tree.Node{
+	//	Val: 0,
+	//}
+	//left := &tree.Node{
+	//	Val: 0,
+	//}
+	//right := &tree.Node{
+	//	Val: 0,
+	//}
+	//root.Left = left
+	//root.Right = right
+	//result := tree.Connect(root)
+	//fmt.Println(result)
+
+	root := &tree.TreeNode{
+		Val: 10,
+		Left: &tree.TreeNode{
+			Val: 5,
+			Left: &tree.TreeNode{
+				Val:   3,
+				Left:  &tree.TreeNode{Val: 3},
+				Right: &tree.TreeNode{Val: -2},
+			},
+			Right: &tree.TreeNode{
+				Val:   2,
+				Right: &tree.TreeNode{Val: 1},
+			},
+		},
+		Right: &tree.TreeNode{
+			Val:   -3,
+			Right: &tree.TreeNode{Val: 11},
+		},
 	}
-	left := &tree.Node{
-		Val: 0,
+
+	result := tree.PathSum2(root, 8)
+	if result != 3 {
+		panic("result is not 3")
 	}
-	right := &tree.Node{
-		Val: 0,
-	}
-	root.Left = left
-	root.Right = right
-	result := tree.Connect(root)
-	fmt.Println(result)
 }
