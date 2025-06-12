@@ -2,6 +2,11 @@ package dynamic
 
 import "math"
 
+/*
+1. 找出子问题 请最长连续子序列的最大乘积 等于求子序列的i-1连续序列的最大值
+2. 找出状态转移方程 f(x) = max(f(x),f(x-1) * nums[x])
+3. 由于存在负数的情况 会导致原来的最小值变成最大值 所以需要维护请求前面序列的最小值 当为负数的时候计算最大值
+*/
 func maxProduct(nums []int) int {
 	dp := make([]int, len(nums))
 
@@ -33,4 +38,38 @@ func maxProduct(nums []int) int {
 		}
 	}
 	return maxNum
+}
+
+func maxProduct2(nums []int) int {
+	maxNum := math.MinInt16
+	imax := 1
+	imin := 1
+
+	for _, v := range nums {
+		if v < 0 {
+			temp := imax
+			imax = imin
+			imin = temp
+		}
+
+		imax = max(imax*v, v)
+		imin = min(imin*v, v)
+		maxNum = max(maxNum, imax)
+	}
+
+	return maxNum
+}
+
+func min(x, y int) int {
+	if x < y {
+		return x
+	}
+	return y
+}
+
+func max(x, y int) int {
+	if x > y {
+		return x
+	}
+	return y
 }
