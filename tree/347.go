@@ -13,7 +13,7 @@ type FrequentKHeap struct {
 }
 
 func (h *FrequentKHeap) Less(i, j int) bool {
-	return (*h).data[i].Times > (*h).data[j].Times
+	return (*h).data[i].Times < (*h).data[j].Times
 }
 
 func (h *FrequentKHeap) Swap(i, j int) {
@@ -25,14 +25,7 @@ func (h *FrequentKHeap) Len() int {
 }
 
 func (h *FrequentKHeap) Push(v any) {
-	if h.Len() < h.size {
-		(*h).data = append((*h).data, v.(FrequentK))
-		return
-	}
-	if (*h).data[0].Times < v.(FrequentK).Times {
-		(*h).data[0] = v.(FrequentK)
-		h.Swap(0, h.Len()-1)
-	}
+	(*h).data = append((*h).data, v.(FrequentK))
 }
 
 func (h *FrequentKHeap) Pop() (v any) {
@@ -58,7 +51,14 @@ func topKFrequent(nums []int, k int) []int {
 		size: k,
 	}
 	for _, v := range items {
-		heap.Push(myHeap, v)
+		item := FrequentK{
+			Times: v.Times,
+			Num:   v.Num,
+		}
+		heap.Push(myHeap, item)
+		if myHeap.Len() > k {
+			heap.Pop(myHeap)
+		}
 	}
 	result := make([]int, 0, k)
 	for i := 0; i < k; i++ {
