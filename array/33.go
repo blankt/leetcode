@@ -4,24 +4,35 @@ func search(nums []int, target int) int {
 	if len(nums) == 0 {
 		return -1
 	}
-	if len(nums) == 1 && nums[0] == target {
-		return 0
+	if len(nums) == 1 {
+		if nums[0] == target {
+			return 0
+		} else {
+			return -1
+		}
 	}
 
 	index := 0
+	exist := false
 	for index < len(nums)-2 {
 		if nums[index] > nums[index+1] {
+			exist = true
 			break
 		}
 		index++
 	}
-
-	newNums := append(nums[index+1:], nums[:index+1]...)
-	result := binarySearch(newNums, target)
-	if result == -1 {
-		return result
+	var result int
+	if exist {
+		newNums := append(nums[index+1:], nums[:index+1]...)
+		result = binarySearch(newNums, target)
+		if result == -1 {
+			return result
+		} else {
+			return (result + index + 1) % len(nums)
+		}
 	} else {
-		return result + index + 1
+		result = binarySearch(nums, target)
+		return result
 	}
 }
 
